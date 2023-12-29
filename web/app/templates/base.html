@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FIleSense</title>
+
+  {% block js %}
+  {% endblock %}
+</head>
+
+<body>
+
+  <!-- navbar -->
+    <a href="{% url 'index' %}">Broken-Ide</a>
+      <ul>
+        {% if current_user.is_authenticated %}
+        <li>
+          <a href="{% url 'profile' %}">Search</a>
+        </li>
+        <li>
+          <a href="{% url 'profile' %}">Upload</a>
+        </li>
+        <li>
+          <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'login' %}">Login</a>
+        </li>
+        <li>
+          <a href="{% url 'register' %}">Register</a>
+        </li>
+        {% endif %}
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <div>
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+      </div>
+  {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+</body>
+{% block aditional %}
+{% endblock %}
+</html>

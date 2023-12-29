@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: FileSense_web
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: gunicorn --bind 0.0.0.0:5000 manage:app
+    volumes:
+      - static_vol:/app/static
+      - ai_vol:/app/ai_data
+    expose:
+      - 5000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    container_name: FileSense_db
+    image: postgres:13
+    volumes:
+      - postgres_vol:/var/lib/postgresql/data/
+    env_file:
+      - ./.db.env
+
+  nginx:
+    container_name: FileSense_nginx
+    build: ./nginx
+    volumes:
+      - static_vol:/app/static
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_vol:
+  static_vol:
