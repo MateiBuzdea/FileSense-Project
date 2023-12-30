@@ -1,21 +1,59 @@
-from flask import Blueprint, render_template, abort, request, redirect, url_for, flash
+from flask import Blueprint, render_template, abort, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
+from flask_sqlalchemy import text
 
 from app import app, db
 from core.models import Document
 from forms import UploadForm
+import ai_utils
 
 core_bp = Blueprint("core", __name__)
 
+@login_required
+@core_bp.route("/home", methods=["GET"])
+def home():
+    # Get users last 3 documents
+    documents = Document.query.filter_by(owner=current_user).order_by(
+        Document.id.desc()).limit(3).all()
+
+    return render_template("home.html", documents=documents)
+
 
 @login_required
-@app.route("/search", methods=["GET", "POST"])
+@core_bp.route("/search", methods=["POST"])
 def search():
-    pass
+    # search can be done by keywords or by chatbot
+    # check if the parameter is keywords or query
+    if request.form.get("keywords"):
+        keywords = request.form.get("keywords")
+        ai_results = ai_utils.search_documents(ai_utils.embeddings, keywords)
+
+        # Get the documents from the database
+        results = Document.query.filter(Document.id.in_([result[0] for result in ai_results])).all()
+
+        return jsonify({
+            "response":None,
+            "results": [result.to_dict() for result in results]
+            })
+
+    elif request.form.get("query"):
+        query = request.form.get("query")
+
+        # Get the query and extract the keywords (named entities) using NER
+        sql_query = ai_utils.extract_keywords(ai_utils.nlp, query)
+        results = db.engine.execute(text(sql_query)).fetchall()
+
+        return jsonify({
+            "response":"Here is what I found:",
+            "results":[result.to_dict() for result in results]
+            })
+    
+    return jsonify({"error": "Invalid query."}), 400
+
 
 
 @login_required
-@app.route("/document/<int:document_id>")
+@core_bp.route("/document/<int:document_id>")
 def view(document_id):
     document = Document.query.get_or_404(document_id)
 
@@ -27,7 +65,7 @@ def view(document_id):
 
 
 @login_required
-@app.route("/upload", methods=["GET", "POST"])
+@core_bp.route("/upload", methods=["GET", "POST"])
 def upload():
     form = UploadForm(request.form)
 
@@ -39,6 +77,9 @@ def upload():
         )
         db.session.add(document)
         db.session.commit()
+
+        # Save document to txtai
+        ai_utils.add_document(ai_utils.embeddings, document)
 
         flash("Successfully uploaded document!", "success")
         return redirect(url_for("core.view", document_id=document.id))

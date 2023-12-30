@@ -12,7 +12,7 @@ accounts_bp = Blueprint("accounts", __name__)
 def register():
     if current_user.is_authenticated:
         flash("You are already registered.", "info")
-        return redirect(url_for("core.search"))
+        return redirect(url_for("core.home"))
 
     form = RegisterForm(request.form)
 
@@ -24,7 +24,7 @@ def register():
         login_user(user)
         flash("Successfully registered!", "success")
 
-        return redirect(url_for("core.search"))
+        return redirect(url_for("core.home"))
 
     return render_template("register.html", form=form)
 
@@ -32,7 +32,7 @@ def register():
 def login():
     if current_user.is_authenticated:
         flash("You are already logged in.", "info")
-        return redirect(url_for("core.search"))
+        return redirect(url_for("core.home"))
     
     form = LoginForm(request.form)
 
@@ -42,7 +42,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash("Successfully logged in!", "success")
-            return redirect(url_for("core.search"))
+            return redirect(url_for("core.home"))
         else:
             flash("Invalid credentials.", "danger")
         
