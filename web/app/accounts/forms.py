@@ -1,25 +1,25 @@
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms.validators import DataRequired, EqualTo, Length, Regexp
 
-from models import User
+from .models import User
 
 
 class RegisterForm(FlaskForm):
     username = StringField(
-        "Email",
-        validators=[DataRequired(), Length(min=6, max=40)]
+        "Username",
+        validators=[DataRequired(), Length(min=4, max=25), Regexp("^[a-zA-Z0-9_]+$")]
     )
     password = PasswordField(
         "Password",
-        validators=[DataRequired(), Length(min=6, max=25)]
+        validators=[DataRequired(), Length(min=4, max=25)]
     )
     confirm = PasswordField(
-        "Repeat Password",
+        "Confirm",
         validators=[DataRequired(), EqualTo("password", message="Passwords must match")],
     )
 
-    def validate(self):
+    def validate(self, extra_validators=None):
         initial_validation = super(RegisterForm, self).validate()
         if not initial_validation:
             return False

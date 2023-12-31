@@ -1,7 +1,7 @@
 from txtai.embeddings import Embeddings
 
 from app.core.models import Document
-from config import basedir
+from app.config import basedir
 
 
 EMBEDDINGS_PATH = basedir + "/ai_data/embeddings"
@@ -21,3 +21,7 @@ def add_document(embeddings, document: Document):
 
 def search_documents(embeddings, query, n=3):
     return embeddings.search(query,n)
+
+def delete_document(embeddings, document: Document):
+    embeddings.delete([document.id])
+    embeddings.save(EMBEDDINGS_PATH)

@@ -12,26 +12,27 @@
 <body>
 
   <!-- navbar -->
-    <a href="{% url 'index' %}">Broken-Ide</a>
+    <a href="{{ url_for('index') }}">FileSense</a>
       <ul>
         {% if current_user.is_authenticated %}
         <li>
-          <a href="{% url 'profile' %}">Search</a>
+          <a href="{{ url_for('core.home') }}">My Documents</a>
         </li>
         <li>
-          <a href="{% url 'profile' %}">Upload</a>
+          <a href="{{ url_for('core.upload') }}">Upload</a>
         </li>
         <li>
-          <a href="{% url 'logout' %}">Logout</a>
+          <a href="{{ url_for('accounts.logout') }}">Logout</a>
         </li>
         {% else %}
         <li>
-          <a href="{% url 'login' %}">Login</a>
+          <a href="{{ url_for('accounts.login') }}">Login</a>
         </li>
         <li>
-          <a href="{% url 'register' %}">Register</a>
+          <a href="{{ url_for('accounts.register') }}">Register</a>
         </li>
         {% endif %}
+      </ul>
 
   <!-- Flash messages -->
   {% with messages = get_flashed_messages() %}

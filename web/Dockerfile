@@ -15,7 +15,8 @@ COPY app/* /app/
 # install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN python3 -m spacy download en_core_web_sm
 
 RUN chmod 755 /wait-for-it.sh
 
-ENTRYPOINT ["/wait-for-it.sh", "$SQL_HOST:$SQL_PORT", "--", "python", "manage.py", "init_db"]
+ENTRYPOINT ["/wait-for-it.sh", "$SQL_HOST:$SQL_PORT", "--", "python", "manage.py", "create_db"]

@@ -9,7 +9,8 @@ class Document(db.Model):
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.Text, nullable=False)
     created_on = db.Column(db.DateTime, nullable=False)
-    owner = db.relationship("User", backref=db.backref("documents", lazy=True))
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    # owner = db.relationship("User", backref="documents", lazy=True)
 
     def __init__(self, title, content, owner):
         self.title = title

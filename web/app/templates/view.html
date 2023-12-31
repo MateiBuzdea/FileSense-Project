@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    {{ document.title }}
+</div>
+
+{{ document.author }} - {{ document.date|date('d/m/Y') }}
+
+<div>
+    {{ document.content }}
+</div>
+
+<div>
+    <form action="{{ url_for('core.delete', {'id': document.id}) }}", method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="submit" value="Delete document">
+    </form>
+</div>
+
+
+{% endblock %}

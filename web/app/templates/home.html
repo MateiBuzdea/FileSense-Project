@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for document in documents %}
+<div>
+    <a href="{{ path('view', {'id': document.id}) }}">{{ document.title }}</a>
+    {{ document.content|striptags|truncate(200) }}
+</div>
+
+{% endblock %}

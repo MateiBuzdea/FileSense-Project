@@ -2,8 +2,8 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_user, logout_user, current_user
 
 from app import db
-from forms import RegisterForm, LoginForm
-from models import User
+from .forms import RegisterForm, LoginForm
+from .models import User
 
 accounts_bp = Blueprint("accounts", __name__)
 
@@ -25,18 +25,21 @@ def register():
         flash("Successfully registered!", "success")
 
         return redirect(url_for("core.home"))
+    else:
+        flash(form.errors, "danger")
 
-    return render_template("register.html", form=form)
+    return render_template("register.html")
 
 @accounts_bp.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         flash("You are already logged in.", "info")
         return redirect(url_for("core.home"))
-    
+
     form = LoginForm(request.form)
 
     if form.validate_on_submit():
+        print(form.username.data, form.password.data)
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and user.check_password(form.password.data):
@@ -45,8 +48,10 @@ def login():
             return redirect(url_for("core.home"))
         else:
             flash("Invalid credentials.", "danger")
-        
-    return render_template("login.html", form=form)
+    else:
+        flash(form.errors, "danger")
+
+    return render_template("login.html")
 
 
 @accounts_bp.route("/logout")

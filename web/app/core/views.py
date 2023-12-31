@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from flask_sqlalchemy import text
+from sqlalchemy import text
 
 from app import app, db
-from core.models import Document
-from forms import UploadForm
-import ai_utils
+from app.core.models import Document
+from .forms import UploadForm
+from app import ai_utils
 
 core_bp = Blueprint("core", __name__)
 
@@ -41,7 +41,7 @@ def search():
 
         # Get the query and extract the keywords (named entities) using NER
         sql_query = ai_utils.extract_keywords(ai_utils.nlp, query)
-        results = db.engine.execute(text(sql_query)).fetchall()
+        results = db.engine.execute(text(sql_query % current_user)).fetchall()
 
         return jsonify({
             "response":"Here is what I found:",
@@ -84,4 +84,23 @@ def upload():
         flash("Successfully uploaded document!", "success")
         return redirect(url_for("core.view", document_id=document.id))
 
-    return render_template("upload.html", form=form)
+    return render_template("upload.html")
+
+
+@login_required
+@core_bp.route("/delete/<int:document_id>", methods=["POST"])
+def delete(document_id):
+    document = Document.query.get_or_404(document_id)
+
+    # check if the document belongs to user
+    if document.owner != current_user:
+        abort(403)
+
+    db.session.delete(document)
+    db.session.commit()
+
+    # delete from txtai as well
+    ai_utils.delete_document(ai_utils.embeddings, document)
+
+    flash("Successfully deleted document!", "success")
+    return redirect(url_for("core.home"))
