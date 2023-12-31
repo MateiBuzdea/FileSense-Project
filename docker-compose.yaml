@@ -4,9 +4,8 @@ services:
   web:
     container_name: FileSense_web
     build:
-      context: ./app
+      context: ./web
       dockerfile: Dockerfile
-    command: gunicorn --bind 0.0.0.0:5000 manage:app
     volumes:
       - static_vol:/app/static
       - ai_vol:/app/ai_data
@@ -27,7 +26,9 @@ services:
 
   nginx:
     container_name: FileSense_nginx
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     volumes:
       - static_vol:/app/static
     ports:
@@ -38,3 +39,4 @@ services:
 volumes:
   postgres_vol:
   static_vol:
+  ai_vol:
