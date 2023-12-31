@@ -7,7 +7,8 @@ from app.config import basedir
 EMBEDDINGS_PATH = basedir + "/ai_data/embeddings"
 
 def init_txtai():
-    embeddings = Embeddings({"path": "sentence-transformers/paraphrase-MiniLM-L6-v2"})
+    # embeddings = Embeddings({"path": "sentence-transformers/paraphrase-MiniLM-L6-v2"})
+    embeddings = Embeddings({"path": "intfloat/e5-base-v2"})
     try:
         embeddings.load(EMBEDDINGS_PATH)
     except:

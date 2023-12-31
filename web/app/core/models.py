@@ -10,7 +10,7 @@ class Document(db.Model):
     content = db.Column(db.Text, nullable=False)
     created_on = db.Column(db.DateTime, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    # owner = db.relationship("User", backref="documents", lazy=True)
+    owner = db.relationship("User", backref=db.backref("documents", lazy=True))
 
     def __init__(self, title, content, owner):
         self.title = title
@@ -20,3 +20,12 @@ class Document(db.Model):
 
     def __repr__(self):
         return f"{self.owner} - {self.title}"
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "content": self.content,
+            "created_on": self.created_on,
+            "owner": self.owner.username
+        }

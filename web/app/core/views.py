@@ -41,7 +41,11 @@ def search():
 
         # Get the query and extract the keywords (named entities) using NER
         sql_query = ai_utils.extract_keywords(ai_utils.nlp, query)
-        results = db.engine.execute(text(sql_query % current_user)).fetchall()
+        with db.engine.connect() as conn:
+            try:
+                results = conn.execute(text(sql_query % current_user.username)).fetchall()
+            except:
+                return jsonify({"error": "Error fetching the database"}), 400
 
         return jsonify({
             "response":"Here is what I found:",

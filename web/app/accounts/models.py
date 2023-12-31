@@ -1,4 +1,10 @@
 from app import db, bcrypt, login_manager
+from flask_login import UserMixin
+
+
+@login_manager.user_loader
+def get_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @login_manager.user_loader
@@ -9,7 +15,7 @@ def load_user(user_id):
         return None
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     __tablename__ = "users"
 
@@ -17,7 +23,6 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    documents = db.relationship("Document", backref="owner", lazy=True)
 
     def __init__(self, username, password, is_admin=False):
         self.username = username
@@ -26,4 +31,3 @@ class User(db.Model):
 
     def __repr__(self):
         return f"{self.username}"
-

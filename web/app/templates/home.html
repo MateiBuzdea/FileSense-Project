@@ -4,8 +4,23 @@
 
 {% for document in documents %}
 <div>
-    <a href="{{ path('view', {'id': document.id}) }}">{{ document.title }}</a>
+    <a href="{{ url_for('core.view', document_id=document.id) }}">{{ document.title }}</a>
     {{ document.content|striptags|truncate(200) }}
 </div>
+{% endfor %}
+
+Search by content:
+<form action="{{ url_for('core.search') }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <input type="text" name="keywords" value="keywords">
+    <input type="submit" value="Search">
+</form>
+
+Ask the AIbot:
+<form action="{{ url_for('core.search') }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <input type="text" name="query" value="query">
+    <input type="submit" value="Search">
+</form>
 
 {% endblock %}
