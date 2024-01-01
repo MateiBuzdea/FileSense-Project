@@ -9,17 +9,17 @@
 </div>
 {% endfor %}
 
-Search by content:
+Search by keywords:
 <form action="{{ url_for('core.search') }}" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="keywords" value="keywords">
+    <input type="text" name="keywords">
     <input type="submit" value="Search">
 </form>
 
-Ask the AIbot:
+Search by similarity:
 <form action="{{ url_for('core.search') }}" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="query" value="query">
+    <input type="text" name="similarity">
     <input type="submit" value="Search">
 </form>
 

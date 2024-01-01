@@ -7,8 +7,10 @@ from app.config import basedir
 EMBEDDINGS_PATH = basedir + "/ai_data/embeddings"
 
 def init_txtai():
-    # embeddings = Embeddings({"path": "sentence-transformers/paraphrase-MiniLM-L6-v2"})
-    embeddings = Embeddings({"path": "intfloat/e5-base-v2"})
+    embeddings = Embeddings({
+        "method": "transformers",
+        "path": "sentence-transformers/bert-base-nli-mean-tokens"
+        })
     try:
         embeddings.load(EMBEDDINGS_PATH)
     except:
@@ -17,11 +19,11 @@ def init_txtai():
     return embeddings
 
 def add_document(embeddings, document: Document):
-    embeddings.upsert([(document.id, document.content, None)])
+    embeddings.upsert([(document.id, document.content)])
     embeddings.save(EMBEDDINGS_PATH)
 
-def search_documents(embeddings, query, n=3):
-    return embeddings.search(query,n)
+def search_documents(embeddings, query, n=5):
+    return embeddings.search(query, n)
 
 def delete_document(embeddings, document: Document):
     embeddings.delete([document.id])

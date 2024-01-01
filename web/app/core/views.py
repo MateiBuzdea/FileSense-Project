@@ -9,6 +9,7 @@ from app import ai_utils
 
 core_bp = Blueprint("core", __name__)
 
+
 @login_required
 @core_bp.route("/home", methods=["GET"])
 def home():
@@ -22,38 +23,50 @@ def home():
 @login_required
 @core_bp.route("/search", methods=["POST"])
 def search():
-    # search can be done by keywords or by chatbot
-    # check if the parameter is keywords or query
-    if request.form.get("keywords"):
-        keywords = request.form.get("keywords")
-        ai_results = ai_utils.search_documents(ai_utils.embeddings, keywords)
+    # search can be done by similarity or keywords search
+    # check if the parameter is similarity or keywords
+    if request.form.get("similarity"):
+        query = request.form.get("similarity")
+        ai_results = ai_utils.search_documents(ai_utils.embeddings, query)
 
         # Get the documents from the database
-        results = Document.query.filter(Document.id.in_([result[0] for result in ai_results])).all()
+        results = []
+
+        # make sure that the results are in order of similarity
+        # similarity must be bigger than 0.2
+        for result in ai_results:
+            if result[1] > 0.2:
+                document = Document.query.get(result[0])
+                if document:
+                    results.append(document)
 
         return jsonify({
-            "response":None,
+            "response": None if len(results) > 0 else "No results found.",
             "results": [result.to_dict() for result in results]
             })
 
-    elif request.form.get("query"):
-        query = request.form.get("query")
+    elif request.form.get("keywords"):
+        query = request.form.get("keywords")
 
-        # Get the query and extract the keywords (named entities) using NER
-        sql_query = ai_utils.extract_keywords(ai_utils.nlp, query)
-        with db.engine.connect() as conn:
-            try:
-                results = conn.execute(text(sql_query % current_user.username)).fetchall()
-            except:
-                return jsonify({"error": "Error fetching the database"}), 400
+        # Get the query and extract the keywords
+        keywords = ai_utils.extract_keywords(ai_utils.nlp, query)
+
+        # Filter the documents by keywords
+        try:
+            sql_query = "content LIKE '%" + "%' OR content LIKE '%".join(keywords) + "%'"
+            results = Document.query.filter(text(sql_query)).all()
+        except:
+            return jsonify({
+                "response": "Error fetching results.",
+                "results": []
+                }), 400
 
         return jsonify({
             "response":"Here is what I found:",
-            "results":[result.to_dict() for result in results]
+            "results":[result.to_dict() for result in results] if len(keywords) > 0 else []
             })
-    
-    return jsonify({"error": "Invalid query."}), 400
 
+    return jsonify({"error": "Invalid query."}), 400
 
 
 @login_required

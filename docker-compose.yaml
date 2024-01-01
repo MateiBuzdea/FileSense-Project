@@ -7,8 +7,8 @@ services:
       context: ./web
       dockerfile: Dockerfile
     volumes:
-      - static_vol:/app/static
-      - ai_vol:/app/ai_data
+      - static_vol:/app/app/static
+      - ai_vol:/app/app/ai_data
     expose:
       - 5000
     env_file:
