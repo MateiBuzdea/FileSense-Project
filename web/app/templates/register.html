@@ -1,17 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="registration-container">
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
 
-{% if error %}
-    <div>{{ error }}</div>
-{% endif %}
+        <form id="registration-form" action="{{ url_for('accounts.register') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
-<form action="{{ url_for('accounts.register') }}", method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="password" name="confirm">
-    <input type="submit" value="Register">
-</form>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
+            </div>
 
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm">Confirm Password:</label>
+                <input type="password" name="confirm" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <style>
+        body {
+            background-color: #808080;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .registration-container {
+            max-width: 300px;
+            text-align: left;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
 {% endblock %}
