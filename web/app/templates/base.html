@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>FIleSense</title>
+  <title>FileSense</title>
 
   {% block js %}
   {% endblock %}
@@ -12,45 +12,124 @@
 <body>
 
   <!-- navbar -->
+  <header>
     <a href="{{ url_for('index') }}">FileSense</a>
-      <ul>
-        {% if current_user.is_authenticated %}
+    <ul>
+      {% if current_user.is_authenticated %}
         <li>
-          <a href="{{ url_for('core.home') }}">My Documents</a>
+          <button class="nav-button" onclick="redirect('{{ url_for('core.home') }}')">My Documents</button>
         </li>
         <li>
-          <a href="{{ url_for('core.upload') }}">Upload</a>
+          <button class="nav-button" onclick="redirect('{{ url_for('core.upload') }}')">Upload</button>
         </li>
         <li>
-          <a href="{{ url_for('accounts.logout') }}">Logout</a>
+          <button class="nav-button" onclick="redirect('{{ url_for('accounts.logout') }}')">Logout</button>
         </li>
-        {% else %}
+      {% else %}
         <li>
-          <a href="{{ url_for('accounts.login') }}">Login</a>
+          <button class="nav-button" onclick="redirect('{{ url_for('accounts.login') }}')">Login</button>
         </li>
         <li>
-          <a href="{{ url_for('accounts.register') }}">Register</a>
+          <button class="nav-button" onclick="redirect('{{ url_for('accounts.register') }}')">Register</button>
         </li>
-        {% endif %}
-      </ul>
+      {% endif %}
+    </ul>
+  </header>
 
-  <!-- Flash messages -->
-  {% with messages = get_flashed_messages() %}
+<!-- Flash messages -->
+{% with messages = get_flashed_messages() %}
   {% if messages %}
-      <div>
-          {% for message in messages %}
-              {{ message }}
-          {% endfor %}
-      </div>
+    <div class="flash-messages">
+      <ul>
+        {% for message in messages %}
+          <li class="flash-message">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <script>
+      setTimeout(function() {
+        var flashMessages = document.querySelector('.flash-messages');
+        flashMessages.classList.add('fade-out');
+      }, 5000);
+    </script>
+
   {% endif %}
-  {% endwith %}
+{% endwith %}
 
   <main>
     {% block content %}
+
     {% endblock %}
   </main>
 
+  <!-- Script pentru a redirecționa la URL-ul specificat -->
+  <script>
+    function redirect(url) {
+      window.location.href = url;
+    }
+  </script>
 </body>
+
 {% block aditional %}
 {% endblock %}
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #808080;
+    color: #000000;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
+  header a {
+    color: black;
+    margin-right: 10px;
+  }
+
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-button {
+  padding: 10px;
+  font-size: 14px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+  li {
+    margin-right: 10px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .flash-message {
+  color: red;
+  transition: opacity 1s ease-out;
+  text-align: center;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+</style>
+
 </html>
