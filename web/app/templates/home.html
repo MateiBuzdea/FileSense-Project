@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 40vh;">
-    <h1>Search</h1>
+    <h1 style="color: white;">Search</h1>
 
     <div class="input-group mb-3 d-flex justify-content-center">
         <form action="{{ url_for('core.search') }}" method="POST" style="display: inline-flex;">
@@ -22,7 +22,7 @@
 <hr />
 
 
-<h1 class="d-flex align-items-center justify-content-center"> Files </h1>
+<h1 class="d-flex align-items-center justify-content-center" style="color: white;"> Files </h1>
 
 {% for document in documents %}
 <div class="card">
@@ -35,4 +35,4 @@
 {% endfor %}
 
 
-{% endblock %}
+{% endblock %}
