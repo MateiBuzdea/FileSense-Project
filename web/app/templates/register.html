@@ -3,7 +3,7 @@
 {% block content %}
     <div class="registration-container">
         {% if error %}
-            <div class="error-message">{{ error }}</div>
+            <div>{{ error }}</div>
         {% endif %}
 
         <form id="registration-form" action="{{ url_for('accounts.register') }}" method="POST">
@@ -67,10 +67,10 @@
             cursor: pointer;
         }
 
-        .error-message {
+        /* .error-message {
             color: red;
             margin-bottom: 10px;
             text-align: center;
-        }
+        } */
     </style>
 {% endblock %}
