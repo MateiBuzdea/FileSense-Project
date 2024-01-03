@@ -11,17 +11,19 @@
 </head>
 
 <body>
-    
-    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+
+    <div class="container d-flex flex-column justify-content-center align-items-center"
+        style="height: 100vh;">
         <div>
             <h1>Upload a file</h1>
         </div>
-        <div>
+        <div style="width: 80%;">
             <form action="{{ url_for('core.upload') }}" method="POST">
                 <p><input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /></p>
                 <p><input class="form-control" type="text" name="title" placeholder="Title"></p>
                 <p><textarea class="form-control" name="content"></textarea></p>
-                <p><button type="submit" class="btn btn-primary w-100" value="Upload document">Upload document</button></p>
+                <p><button type="submit" class="btn btn-primary w-100" value="Upload document">Upload document</button>
+                </p>
                 <!-- <p><input type="submit" value="Upload document"></p> -->
             </form>
         </div>
