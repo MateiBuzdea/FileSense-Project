@@ -5,6 +5,7 @@
   text-align: center;
   padding: 20px;
   margin: 100px auto 50px; /* Margin-bottom mai mare pentru a coborî containerul */;
+  
 }
 
 .registration-container {
@@ -23,6 +24,7 @@ label {
   display: block;
   margin-bottom: 5px;
   text-align: center;
+  color: white;
 }
 
 input {
@@ -32,7 +34,7 @@ input {
 }
 
 button {
-  background-color: #1481BA;
+  background-color: #0D6EFD;
   color: white;
   padding: 10px;
   border: none;
@@ -57,9 +59,17 @@ color: #000000;
   padding: 10px;
 } */
 
-header a {
+/* header a {
   color: black;
   margin-right: 10px;
+} */
+header a {
+  color: white;
+  margin-right: 10px;
+  margin-left: 30px;
+  text-decoration: none; /* Remove underlining */
+  font-size: 1.5em; /* Set font size to be larger than h4 */
+  font-weight: bold; /* Optionally set font weight to bold */
 }
 
 ul {
@@ -76,7 +86,7 @@ align-items: center;
 display: flex;
 justify-content: space-between;
 align-items: center;
-background-color: #8D91C7; /* culoarea fundalului */
+background-color: #287094; /* culoarea fundalului */
 }
 
 /* Pentru butoanele din bara de navigație */
@@ -86,7 +96,7 @@ width: 150px;
 margin-right: 10px;
 margin-top: 15px;
 margin-bottom: 0px;
-background-color: #1481BA; /* culoarea butoanelor */
+background-color: #0D6EFD; /* culoarea butoanelor */
 }
 
 /* li {
@@ -104,16 +114,15 @@ main {
   left: 50%;
   transform: translateX(-50%);
   width: 300px; /* sau orice dimensiune doriti */
-  background-color: #fff; /* culoare de fundal a containerului */
+  background-color: #548890; /* culoare de fundal a containerului */
   border: 1px solid #ccc; /* bordura containerului */
-  padding: 10px;
-  margin: 10px;
   z-index: 999; /* pentru a se afisa deasupra celorlalte elemente */
   text-align: center;
+
 }
-/* Pentru mesajele flash */
+
 .flash-messages {
-color: red; /* culoare text */
+color: white; /* culoare text */
 transition: opacity 1s ease-out;
 text-align: center;
 }
