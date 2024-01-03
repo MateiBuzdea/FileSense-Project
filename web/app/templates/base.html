@@ -11,7 +11,7 @@
   {% endblock %}
 </head>
 
-<body style="background: #001f3f;">
+<body style="background: #023246;">
   
 
   <!-- navbar -->
@@ -42,11 +42,11 @@
 <!-- Flash messages -->
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <div class="flash-messages-container">
-      <div class="flash-messages">
+    <div class="flash-messages-container col d-flex align-items-center justify-content-center">
+      <div class="flash-messages col d-flex align-items-center justify-content-center">
         <ul>
           {% for message in messages %}
-            <li class="flash-message">{{ message }}</li>
+            <li class="flash-message col d-flex align-items-center justify-content-center">{{ message }}</li>
           {% endfor %}
         </ul>
       </div>
