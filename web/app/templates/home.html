@@ -4,23 +4,63 @@
 
 {% for document in documents %}
 <div>
-    <a href="{{ url_for('core.view', document_id=document.id) }}">{{ document.title }}</a>
-    {{ document.content|striptags|truncate(200) }}
+        <a href="{{ url_for('core.view', document_id=document.id) }}">{{ document.title }}</a>
+        {{ document.content|striptags|truncate(200) }}
 </div>
 {% endfor %}
 
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+    Search
+</button>
+
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Search Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('core.search') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <div class="form-group">
+                        <label for="searchInput">Search Text</label>
+                        <input type="text" class="form-control" id="searchInput" name="searchText">
+                    </div>
+                    <div class="form-group">
+                        <label for="keywordsButton">Search by Keywords</label>
+                        <button type="submit" class="btn btn-primary" id="keywordsButton">Search</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="similarityButton">Search by Similarity</label>
+                        <button type="submit" class="btn btn-primary" id="similarityButton">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- BEGIN: be15d9bcejpp -->
 Search by keywords:
 <form action="{{ url_for('core.search') }}" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="keywords">
-    <input type="submit" value="Search">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="text" name="keywords">
+        <input type="submit" value="Search">
 </form>
 
 Search by similarity:
 <form action="{{ url_for('core.search') }}" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="similarity">
-    <input type="submit" value="Search">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="text" name="similarity">
+        <input type="submit" value="Search">
 </form>
+<!-- END: be15d9bcejpp -->
+
 
 {% endblock %}
+<!-- END: abpxx6d04wxr -->

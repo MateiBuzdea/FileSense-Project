@@ -2,6 +2,39 @@
 
 {% block content %}
 
-<img src="/static/storage.webp">
+
+<div class="jumbotron jumbotron-fluid d-flex align-items-center justify-content-center"  style="background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('/static/storage.webp'); background-size: cover; background-position: center center; height: 100vh; backdrop-filter: blur(15px);">
+  <div class="container text-center">
+    <h1 class="display-4" style="color: white;">FileSense</h1>
+    <p class="lead" style="color: white;;">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
+
+
+
+<!-- Create a footer that contains three columns. The first contains a logo image and a block of text underneath. The second contains info about location. The third contains links to social media. -->
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>FileSense</h2>
+        <p class="mt-2">This is some text about the company. It provides some information about who we are and what we do.</p>
+      </div>
+      <div class="col">
+        <h5>Contact</h5>
+        <p>Universitatea Politehnica Bucuresti, Romania</p>
+        <p>Telephone: +40 123 456 789</p>
+        <p>Email: info@filesense.com</p>
+      </div>
+      <!-- <div class="col">
+        <h5>Follow us</h5>
+        <p><a href="#"><img src="/path/to/facebook.png" alt="Facebook" class="img-fluid"></a></p>
+        <p><a href="#"><img src="/path/to/twitter.png" alt="Twitter" class="img-fluid"></a></p>
+        <p><a href="#"><img src="/path/to/instagram.png" alt="Instagram" class="img-fluid"></a></p>
+      </div> -->
+    </div>
+  </div>
+</footer>
 
 {% endblock %}
