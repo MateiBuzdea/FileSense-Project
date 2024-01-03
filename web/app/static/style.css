@@ -1,99 +1,124 @@
 /* style.css */
 
 .authentication-container {
-    max-width: 300px;
-    text-align: left;
-    padding: 20px;
-    margin: 20px;
-    text-align: left;
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+  margin: 100px auto 50px; /* Margin-bottom mai mare pentru a coborî containerul */;
 }
 
 .registration-container {
-    max-width: 300px;
-    text-align: left;
-    padding: 20px;
-    margin: 20px;
+max-width: 300px;
+text-align: center;
+padding: 20px;
+margin: 100px auto 50px; /* Margin-bottom mai mare pentru a coborî containerul */
 }
 
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    text-align: center;
+  display: block;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
 input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
+  background-color: #1481BA;
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
 }
 
 /*pentru base.html*/
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #666666;;;
-    color: #000000;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-
-  header a {
-    color: black;
-    margin-right: 10px;
-  }
-
-  ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+margin: 0;
+padding: 0;
+font-family: Arial, sans-serif;
+background: #666666; /* Remove the extra semicolon here */
+color: #000000;
 }
 
-.nav-button {
+/* header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  font-size: 14px;
-  width: 100px;
+} */
+
+header a {
+  color: black;
   margin-right: 10px;
 }
 
-  li {
-    margin-right: 10px;
-  }
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+/* background: #3498db; */
+}
 
-  main {
-    padding: 20px;
-  }
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #8D91C7; /* culoarea fundalului */
+}
 
-  .flash-message {
-  color: red;
-  transition: opacity 1s ease-out;
+/* Pentru butoanele din bara de navigație */
+.nav-button {
+font-size: 14px;
+width: 150px;
+margin-right: 10px;
+margin-top: 15px;
+margin-bottom: 0px;
+background-color: #1481BA; /* culoarea butoanelor */
+}
+
+/* li {
+  margin-right: 10px;
+} */
+
+main {
+  padding: 20px;
+}
+
+
+.flash-messages-container {
+  position: fixed;
+  top: 60px; /* înălțimea barei de navigație */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px; /* sau orice dimensiune doriti */
+  background-color: #fff; /* culoare de fundal a containerului */
+  border: 1px solid #ccc; /* bordura containerului */
+  padding: 10px;
+  margin: 10px;
+  z-index: 999; /* pentru a se afisa deasupra celorlalte elemente */
   text-align: center;
+}
+/* Pentru mesajele flash */
+.flash-messages {
+color: red; /* culoare text */
+transition: opacity 1s ease-out;
+text-align: center;
 }
 
 .fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-in;
+opacity: 0;
+transition: opacity 1s ease-in;
 }
