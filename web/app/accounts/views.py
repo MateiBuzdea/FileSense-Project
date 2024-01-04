@@ -16,7 +16,7 @@ def register():
 
     form = RegisterForm(request.form)
 
-    if form.validate_on_submit():
+    if form.username.data and form.validate_on_submit():
         user = User(username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -26,7 +26,7 @@ def register():
 
         return redirect(url_for("core.home"))
     else:
-        flash(form.errors, "danger")
+        flash("Username/password too short.", "danger")
 
     return render_template("register.html")
 
@@ -38,7 +38,7 @@ def login():
 
     form = LoginForm(request.form)
 
-    if form.validate_on_submit():
+    if form.username.data and form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -48,7 +48,7 @@ def login():
         else:
             flash("Invalid credentials.", "danger")
     else:
-        flash(form.errors, "danger")
+        flash("Login error", "danger")
 
     return render_template("login.html")
 

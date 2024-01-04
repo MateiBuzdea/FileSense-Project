@@ -1,10 +1,13 @@
 # FileSense
 
 ## Description
-[...]
 
 
-# Front End
+## Usage
+
+
+
+## Front End
 We used the Bootstrap toolkit to enhance the user interface of our application.
 By utilizing Bootstrap's pre-built components, we were able to ensure a
 consistent design across different devices and screen sizes. Among the

@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, abort, request, redirect, url_for, flash, jsonify
+from flask import Blueprint, render_template, abort, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from sqlalchemy import text
 
-from app import app, db
+from app import db
 from app.core.models import Document
 from .forms import UploadForm
 from app import ai_utils
@@ -25,8 +25,8 @@ def home():
 def search():
     # search can be done by similarity or keywords search
     # check if the parameter is similarity or keywords
-    if request.form.get("similarity"):
-        query = request.form.get("similarity")
+    if request.form.get("searchOption") == "similarity":
+        query = request.form.get("search")
         ai_results = ai_utils.search_documents(ai_utils.embeddings, query)
 
         # Get the documents from the database
@@ -40,13 +40,10 @@ def search():
                 if document:
                     results.append(document)
 
-        return jsonify({
-            "response": None if len(results) > 0 else "No results found.",
-            "results": [result.to_dict() for result in results]
-            })
+        return render_template("home.html", documents=results)
 
-    elif request.form.get("keywords"):
-        query = request.form.get("keywords")
+    elif request.form.get("searchOption") == "keywords":
+        query = request.form.get("search")
 
         # Get the query and extract the keywords
         keywords = ai_utils.extract_keywords(ai_utils.nlp, query)
@@ -56,17 +53,13 @@ def search():
             sql_query = "content LIKE '%" + "%' OR content LIKE '%".join(keywords) + "%'"
             results = Document.query.filter(text(sql_query)).all()
         except:
-            return jsonify({
-                "response": "Error fetching results.",
-                "results": []
-                }), 400
+            flash("Database fetch error.", "danger")
+            return render_template("home.html")
 
-        return jsonify({
-            "response":"Here is what I found:",
-            "results":[result.to_dict() for result in results] if len(keywords) > 0 else []
-            })
+        return render_template("home.html", documents=results if len(keywords) > 0 else [])
 
-    return jsonify({"error": "Invalid query."}), 400
+    flash("Invalid search query.", "danger")
+    return render_template("home.html")
 
 
 @login_required

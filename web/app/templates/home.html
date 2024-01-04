@@ -8,10 +8,10 @@
     <div class="input-group mb-3 d-flex justify-content-center">
         <form action="{{ url_for('core.search') }}" method="POST" style="display: inline-flex;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-            <input type="text" name="search">
+            <input type="text" name="search" width="300px">
             <select name="searchOption" class="form-select">
+                <option value="similarity" name="similarity" selected>Similarity</option>
                 <option value="keywords" name="keywords">Keywords</option>
-                <option value="similarity" name="similarity">Similarity</option>
             </select>
             <button class="btn btn-outline-primary" type="submit" value="Search">Search</button>
         </form>
@@ -27,7 +27,7 @@
 {% for document in documents %}
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{ document.title }}</h5>
+        <a style="text-decoration:None" href="{{ url_for('core.view', document_id=document.id) }}"><h3 class="card-title">{{ document.title }}</h3></a>
         <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.owner }} - {{ document.created_on }}</h6>
         <p class="card-text">{{ document.content|striptags|truncate(200) }}</p>
     </div>
@@ -35,4 +35,4 @@
 {% endfor %}
 
 
-{% endblock %}
+{% endblock %}
