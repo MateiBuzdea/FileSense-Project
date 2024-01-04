@@ -1,0 +1,116 @@
+/* style.css */
+
+.authentication-container {
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+  margin: 100px auto 50px;
+
+}
+
+.registration-container {
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+  margin: 100px auto 50px;
+}
+
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: center;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #0D6EFD;
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+/*pentru base.html*/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #023246;
+  color: #000000;
+}
+
+header a {
+  color: white;
+  margin-right: 10px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #287094;
+}
+
+.nav-button {
+  font-size: 14px;
+  width: 150px;
+  margin-right: 10px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  background-color: #0D6EFD;
+}
+
+main {
+  padding: 20px;
+}
+
+
+.flash-messages-container {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  background-color: #548890;
+  border: 1px solid #ccc;
+  z-index: 999;
+  text-align: center;
+
+}
+
+.flash-messages {
+  color: white;
+  transition: opacity 1s ease-out;
+  text-align: center;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}

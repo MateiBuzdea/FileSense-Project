@@ -1,17 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="registration-container">
+        {% if error %}
+            <div>{{ error }}</div>
+        {% endif %}
 
-{% if error %}
-    <div>{{ error }}</div>
-{% endif %}
+        <form id="registration-form" action="{{ url_for('accounts.register') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
-<form action="{{ url_for('accounts.register') }}", method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="password" name="confirm">
-    <input type="submit" value="Register">
-</form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm">Confirm Password</label>
+                <input type="password" name="confirm" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
 
 {% endblock %}
