@@ -4,15 +4,15 @@
   max-width: 300px;
   text-align: center;
   padding: 20px;
-  margin: 100px auto 50px; /* Margin-bottom mai mare pentru a coborî containerul */;
-  
+  margin: 100px auto 50px;
+
 }
 
 .registration-container {
-max-width: 300px;
-text-align: center;
-padding: 20px;
-margin: 100px auto 50px; /* Margin-bottom mai mare pentru a coborî containerul */
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+  margin: 100px auto 50px;
 }
 
 
@@ -45,63 +45,46 @@ button {
 /*pentru base.html*/
 
 body {
-margin: 0;
-padding: 0;
-font-family: Arial, sans-serif;
-background: #666666; /* Remove the extra semicolon here */
-color: #000000;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #023246;
+  color: #000000;
 }
 
-/* header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-} */
-
-/* header a {
-  color: black;
-  margin-right: 10px;
-} */
 header a {
   color: white;
   margin-right: 10px;
   margin-left: 30px;
-  text-decoration: none; /* Remove underlining */
-  font-size: 1.5em; /* Set font size to be larger than h4 */
-  font-weight: bold; /* Optionally set font weight to bold */
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 ul {
-list-style-type: none;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: flex-start;
-align-items: center;
-/* background: #3498db; */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .navbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-background-color: #287094; /* culoarea fundalului */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #287094;
 }
 
-/* Pentru butoanele din bara de navigație */
 .nav-button {
-font-size: 14px;
-width: 150px;
-margin-right: 10px;
-margin-top: 15px;
-margin-bottom: 0px;
-background-color: #0D6EFD; /* culoarea butoanelor */
-}
-
-/* li {
+  font-size: 14px;
+  width: 150px;
   margin-right: 10px;
-} */
+  margin-top: 15px;
+  margin-bottom: 0px;
+  background-color: #0D6EFD;
+}
 
 main {
   padding: 20px;
@@ -110,24 +93,24 @@ main {
 
 .flash-messages-container {
   position: fixed;
-  top: 60px; /* înălțimea barei de navigație */
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px; /* sau orice dimensiune doriti */
-  background-color: #548890; /* culoare de fundal a containerului */
-  border: 1px solid #ccc; /* bordura containerului */
-  z-index: 999; /* pentru a se afisa deasupra celorlalte elemente */
+  width: 300px;
+  background-color: #548890;
+  border: 1px solid #ccc;
+  z-index: 999;
   text-align: center;
 
 }
 
 .flash-messages {
-color: white; /* culoare text */
-transition: opacity 1s ease-out;
-text-align: center;
+  color: white;
+  transition: opacity 1s ease-out;
+  text-align: center;
 }
 
 .fade-out {
-opacity: 0;
-transition: opacity 1s ease-in;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
