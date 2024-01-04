@@ -23,8 +23,6 @@ def add_document(embeddings, document: Document):
     embeddings.save(EMBEDDINGS_PATH)
 
 def search_documents(embeddings, query, n=5):
-    print("Searching for:", query)
-    print("Top", n, "results:", embeddings.search(query, 10))
     return embeddings.search(query, n)
 
 def delete_document(embeddings, document: Document):
